@@ -3,8 +3,7 @@ package cricketleagueanalysis;
 import com.opencsv.bean.CsvBindByName;
 
 public class IPLMostRunData {
-
-    @CsvBindByName(column = "POS", required = true)
+    @CsvBindByName(column = "POS")
     public int position;
 
     @CsvBindByName(column = "PLAYER", required = true)
@@ -23,7 +22,7 @@ public class IPLMostRunData {
     public int runs;
 
     @CsvBindByName(column = "HS", required = true)
-    public int highScore;
+    public String highScore;
 
     @CsvBindByName(column = "Avg", required = true)
     public Double average;
