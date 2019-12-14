@@ -1,5 +1,5 @@
 package cricketleagueanalysis;
 
 public enum SortedDataBaseOnField {
-    AVERAGE
+    AVERAGE, STRIKING_RATE
 }

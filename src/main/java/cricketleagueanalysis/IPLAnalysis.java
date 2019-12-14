@@ -21,6 +21,7 @@ public class IPLAnalysis {
     public IPLAnalysis() {
         this.fields = new HashMap<>();
         this.fields.put(SortedDataBaseOnField.AVERAGE, Comparator.comparing(census -> census.average,Comparator.reverseOrder()));
+        this.fields.put(SortedDataBaseOnField.STRIKING_RATE, Comparator.comparing(census -> census.strikeRate,Comparator.reverseOrder()));
     }
 
     public int loadIPLCSVFileData(String iplMostRunCsvFilePath) throws IPLException {
