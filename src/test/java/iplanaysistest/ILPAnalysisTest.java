@@ -61,4 +61,18 @@ public class ILPAnalysisTest {
             Assert.assertEquals(IPLException.ExceptionType.CENSUS_FILE_PROBLEM, e.type);
         }
     }
+
+    @Test
+    public void givenIndianStateData_SortedOnState_ShouldReturnSortedResult() {
+        IPLAnalysis iplAnalysis = new IPLAnalysis();
+        String sortedData = null;
+        try {
+            iplAnalysis.loadIPLCSVFileData(IPL_MOST_RUN_CSV_FILE_PATH);
+            sortedData = iplAnalysis.getTopAverageBattingPlayerName(SortedDataBaseOnField.AVERAGE);
+            IPLMostRunCsvData[] censusCSV = new Gson().fromJson(sortedData, IPLMostRunCsvData[].class);
+            Assert.assertEquals("MS Dhoni", censusCSV[0].playerName);
+        } catch (IPLException e) {
+            Assert.assertEquals(IPLException.ExceptionType.WRONG_FILE_PATH, e.type);
+        }
+    }
 }
