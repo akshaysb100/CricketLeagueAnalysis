@@ -44,24 +44,4 @@ public class IPLMostRunCsvData {
 
     @CsvBindByName(column = "6s", required = true)
     public int numberOfSix;
-
-    public IPLMostRunCsvData() {
-    }
-
-    public IPLMostRunCsvData(IPLMostRunCsvData iplMostRunCsvData) {
-        this.position = position;
-        this.playerName = playerName;
-        this.matches = matches;
-        this.innings = innings;
-        this.notOut = notOut;
-        this.runs = runs;
-        this.highScore = highScore;
-        this.average = average;
-        this.ballFaced = ballFaced;
-        this.strikeRate = strikeRate;
-        this.numberOfHundreds = numberOfHundreds;
-        this.numberOfFifty = numberOfFifty;
-        this.numberOfFours = numberOfFours;
-        this.numberOfSix = numberOfSix;
-    }
 }

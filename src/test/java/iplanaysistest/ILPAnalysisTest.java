@@ -63,7 +63,7 @@ public class ILPAnalysisTest {
     }
 
     @Test
-    public void givenIndianStateData_SortedOnState_ShouldReturnSortedResult() {
+    public void givenIPLMostRunCSVFile_SortedOnBestBattingAverage_ShouldReturnPlayerName() {
         IPLAnalysis iplAnalysis = new IPLAnalysis();
         String sortedData = null;
         try {
