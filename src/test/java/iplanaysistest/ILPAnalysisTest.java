@@ -36,11 +36,23 @@ public class ILPAnalysisTest {
     }
 
     @Test
-    public void givenIPLMostRunCSVFile_WithWrong_ShouldThrowException() {
+    public void givenIPLMostRunCSVFile_WithWrongFile_ShouldThrowException() {
         IPLAnalysis iplAnalysis = new IPLAnalysis();
         int numOfRecords = 0;
         try {
             numOfRecords = iplAnalysis.loadIPLCSVFileData(WRONG_CSV_FILE_PATH);
+            Assert.assertEquals(100, numOfRecords);
+        } catch (IPLException e) {
+            Assert.assertEquals(IPLException.ExceptionType.CENSUS_FILE_PROBLEM, e.type);
+        }
+    }
+
+    @Test
+    public void givenIPLMostRunCSVFile_WithPassNullFile_ShouldThrowException() {
+        IPLAnalysis iplAnalysis = new IPLAnalysis();
+        int numOfRecords = 0;
+        try {
+            numOfRecords = iplAnalysis.loadIPLCSVFileData("");
             Assert.assertEquals(100, numOfRecords);
         } catch (IPLException e) {
             Assert.assertEquals(IPLException.ExceptionType.CENSUS_FILE_PROBLEM, e.type);
