@@ -1,7 +1,10 @@
 package iplanaysistest;
 
+import com.google.gson.Gson;
 import cricketleagueanalysis.IPLAnalysis;
 import cricketleagueanalysis.IPLException;
+import cricketleagueanalysis.IPLMostRunCsvData;
+import cricketleagueanalysis.SortedDataBaseOnField;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -9,7 +12,7 @@ public class ILPAnalysisTest {
 
     private static final String IPL_MOST_RUN_CSV_FILE_PATH = "./src/test/resources/IPL2019FactsheetMostRuns.csv";
     private static final String WRONG_DELIMITER_CSV_FILE_PATH = "./src/test/resources/WrongDelimiterIPL2019MostRun.csv";
-    private static final String WRONG_CSV_FILE_PATH = "./src/test/resources/IPL2019FactsheetMostWkts.csv";
+    private static final String WRONG_CSV_FILE_PATH = "./src/test/resources/IPL2019FactsheetMostWkt.csv";
 
     @Test
     public void givenIPLMostRunCSVFile_ShouldGetMapOfCorrectSize() {
@@ -43,7 +46,7 @@ public class ILPAnalysisTest {
             numOfRecords = iplAnalysis.loadIPLCSVFileData(WRONG_CSV_FILE_PATH);
             Assert.assertEquals(100, numOfRecords);
         } catch (IPLException e) {
-            Assert.assertEquals(IPLException.ExceptionType.CENSUS_FILE_PROBLEM, e.type);
+            Assert.assertEquals(IPLException.ExceptionType.WRONG_FILE_PATH, e.type);
         }
     }
 
