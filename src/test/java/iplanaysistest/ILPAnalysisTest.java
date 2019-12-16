@@ -144,4 +144,18 @@ public class ILPAnalysisTest {
             Assert.assertEquals(IPLException.ExceptionType.WRONG_FILE_PATH, e.type);
         }
     }
+
+    @Test
+    public void givenIPLMostRunCSVFile_WhoHitMaximumRunsWithBestAverage_ShouldReturnPlayerName() {
+        IPLAnalysis iplAnalysis = new IPLAnalysis();
+        String sortedData = null;
+        try {
+            iplAnalysis.loadIPLCSVFileData(IPL_MOST_RUN_CSV_FILE_PATH);
+            sortedData = iplAnalysis.getTopAverageBattingPlayerName(SortedDataBaseOnField.MAXIMUM_RUN_WITH_AVERAGE);
+            IPLMostRunCsvData[] censusCSV = new Gson().fromJson(sortedData, IPLMostRunCsvData[].class);
+            Assert.assertEquals("David Warner", censusCSV[0].playerName);
+        } catch (IPLException e) {
+            Assert.assertEquals(IPLException.ExceptionType.WRONG_FILE_PATH, e.type);
+        }
+    }
 }

@@ -8,6 +8,7 @@ public class IPLAnalysisDAO{
     public  Double average;
     public int numberOf6s;
     public int numberOf4s;
+    public int numberOfRuns;
 
     public IPLAnalysisDAO(IPLMostRunCsvData iplMostRunCsvData) {
         position = iplMostRunCsvData.position;
@@ -16,5 +17,6 @@ public class IPLAnalysisDAO{
         average = iplMostRunCsvData.average;
         numberOf4s = iplMostRunCsvData.numberOfFours;
         numberOf6s = iplMostRunCsvData.numberOfSix;
+        numberOfRuns = iplMostRunCsvData.runs;
     }
 }
