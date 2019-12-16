@@ -104,12 +104,26 @@ public class ILPAnalysisTest {
     }
 
     @Test
-    public void givenIPLMostRunCsvFile_WhoHitMaximumSixAndFour_ShouldReturnPlayerName(){
+    public void givenIPLMostRunCsvFile_WhoHitMaximumSixAndFour_ShouldReturnPlayerName() {
         IPLAnalysis iplAnalysis = new IPLAnalysis();
         String sortedData = null;
         try {
             iplAnalysis.loadIPLCSVFileData(IPL_MOST_RUN_CSV_FILE_PATH);
             sortedData = iplAnalysis.getTopAverageBattingPlayerName(SortedDataBaseOnField.BY_4s_AND_6s);
+            IPLMostRunCsvData[] censusCSV = new Gson().fromJson(sortedData, IPLMostRunCsvData[].class);
+            Assert.assertEquals("Andre Russell", censusCSV[0].playerName);
+        } catch (IPLException e) {
+            Assert.assertEquals(IPLException.ExceptionType.WRONG_FILE_PATH, e.type);
+        }
+    }
+
+    @Test
+    public void givenIPLMostRunCSVFile_TopStrikingRatesOfBatsmanWithMaximum6sAnd4s_ShouldReturnPlayerName() {
+        IPLAnalysis iplAnalysis = new IPLAnalysis();
+        String sortedData = null;
+        try {
+            iplAnalysis.loadIPLCSVFileData(IPL_MOST_RUN_CSV_FILE_PATH);
+            sortedData = iplAnalysis.getTopAverageBattingPlayerName(SortedDataBaseOnField.STRIKING_RATE_WITH_6S_And_4s);
             IPLMostRunCsvData[] censusCSV = new Gson().fromJson(sortedData, IPLMostRunCsvData[].class);
             Assert.assertEquals("Andre Russell", censusCSV[0].playerName);
         } catch (IPLException e) {
