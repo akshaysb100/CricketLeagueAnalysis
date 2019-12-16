@@ -24,6 +24,8 @@ public class IPLAnalysis {
         this.fields.put(SortedDataBaseOnField.STRIKING_RATE, Comparator.comparing(census -> census.strikeRate, Comparator.reverseOrder()));
         this.fields.put(SortedDataBaseOnField.BY_4s_AND_6s, new SortMethodContainer().reversed());
         this.fields.put(SortedDataBaseOnField.STRIKING_RATE_WITH_6S_And_4s, new SortMethodContainer().reversed().thenComparing(compare -> compare.strikeRate));
+        Comparator<IPLAnalysisDAO> comp = Comparator.comparing(censusDAO -> censusDAO.average, Comparator.reverseOrder());
+        this.fields.put(SortedDataBaseOnField.AVERAGE_WITH_BEST_STRIKING_RATE, comp.thenComparing(censusDAO -> censusDAO.strikeRate, Comparator.reverseOrder()));
     }
 
     public int loadIPLCSVFileData(String iplMostRunCsvFilePath) throws IPLException {
