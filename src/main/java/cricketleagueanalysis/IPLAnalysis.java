@@ -26,8 +26,8 @@ public class IPLAnalysis {
         this.fields.put(SortedDataBaseOnField.STRIKING_RATE_WITH_6S_And_4s, new SortMethodContainer().reversed().thenComparing(compare -> compare.strikeRate));
         Comparator<IPLAnalysisDAO> comp = Comparator.comparing(censusDAO -> censusDAO.average, Comparator.reverseOrder());
         this.fields.put(SortedDataBaseOnField.AVERAGE_WITH_BEST_STRIKING_RATE, comp.thenComparing(censusDAO -> censusDAO.strikeRate, Comparator.reverseOrder()));
-        Comparator<IPLAnalysisDAO> comp1 = Comparator.comparing(censusDAO -> censusDAO.numberOfRuns, Comparator.reverseOrder());
-        this.fields.put(SortedDataBaseOnField.MAXIMUM_RUN_WITH_AVERAGE, comp1.thenComparing(censusDAO -> censusDAO.average, Comparator.reverseOrder()));
+        Comparator<IPLAnalysisDAO> runs = Comparator.comparing(censusDAO -> censusDAO.numberOfRuns, Comparator.reverseOrder());
+        this.fields.put(SortedDataBaseOnField.MAXIMUM_RUN_WITH_AVERAGE, runs.thenComparing(comp));
     }
 
     public int loadIPLCSVFileData(String iplMostRunCsvFilePath) throws IPLException {
