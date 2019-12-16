@@ -48,6 +48,24 @@ public class IPLAnalysis {
         return analysisMap.size();
     }
 
+    public int loadWicketsIPLCSVFileData(String iplMostWicketsCsvFilePath)throws IPLException {
+        try (Reader reader = Files.newBufferedReader(Paths.get(iplMostWicketsCsvFilePath))) {
+            ICSVBuilder csvBuilder = CSVBuilderFactory.createCSVBuilder();
+            Iterator<IPLMostWicketsCsvData> censusList = csvBuilder.getCSVFileIterator(reader, IPLMostRunCsvData.class);
+            Iterable<IPLMostWicketsCsvData> indiaCensusCSVS = () -> censusList;
+            StreamSupport.stream(indiaCensusCSVS.spliterator(), false)
+                    .map(IPLMostRunCsvData.class::cast)
+                    .forEach(csvCensus -> analysisMap.put(csvCensus.playerName, new IPLAnalysisDAO(csvCensus)));
+        } catch (IOException e) {
+            throw new IPLException(e.getMessage(),
+                    IPLException.ExceptionType.WRONG_FILE_PATH);
+        } catch (CsvBuilderException e) {
+            throw new IPLException(e.getMessage(),
+                    IPLException.ExceptionType.CENSUS_FILE_PROBLEM);
+        }
+        return analysisMap.size();
+    }
+
     public String getTopAverageBattingPlayerName(SortedDataBaseOnField fieldName) throws IPLException {
         if (analysisMap == null || analysisMap.size() == 0) {
             throw new IPLException("No Data", IPLException
