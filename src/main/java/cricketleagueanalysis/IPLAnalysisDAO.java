@@ -6,11 +6,15 @@ public class IPLAnalysisDAO{
     public String playerName;
     public Double strikeRate;
     public  Double average;
+    public int numberOf6s;
+    public int numberOf4s;
 
     public IPLAnalysisDAO(IPLMostRunCsvData iplMostRunCsvData) {
         position = iplMostRunCsvData.position;
         playerName = iplMostRunCsvData.playerName;
         strikeRate = iplMostRunCsvData.strikeRate;
         average = iplMostRunCsvData.average;
+        numberOf4s = iplMostRunCsvData.numberOfFours;
+        numberOf6s = iplMostRunCsvData.numberOfSix;
     }
 }
