@@ -13,7 +13,7 @@ public class ILPAnalysisTest {
     private static final String IPL_MOST_RUN_CSV_FILE_PATH = "./src/test/resources/IPL2019FactsheetMostRuns.csv";
     private static final String WRONG_DELIMITER_CSV_FILE_PATH = "./src/test/resources/WrongDelimiterIPL2019MostRun.csv";
     private static final String WRONG_CSV_FILE_PATH = "./src/test/resources/IPL2019FactsheetMostWkt.csv";
-    private static final String IPL_MOST_WICKETS_CSV_FILE_PATH = "./src/test/resources/IPL2019FactsheetMostWkts.csv";
+    private static final String IPL_MOST_WICKETS_CSV_FILE_PATH = "/home/user/IdeaProjects/IndianPremierLeagueSeason/src/test/resources/IPL2019FactsheetMostWkts.csv";
 
     @Test
     public void givenIPLMostRunCSVFile_ShouldGetMapOfCorrectSize() {

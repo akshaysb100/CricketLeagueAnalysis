@@ -31,31 +31,29 @@ public class IPLAnalysis {
     }
 
     public int loadIPLCSVFileData(String iplMostRunCsvFilePath) throws IPLException {
-        try (Reader reader = Files.newBufferedReader(Paths.get(iplMostRunCsvFilePath))) {
-            ICSVBuilder csvBuilder = CSVBuilderFactory.createCSVBuilder();
-            Iterator<IPLMostRunCsvData> censusList = csvBuilder.getCSVFileIterator(reader, IPLMostRunCsvData.class);
-            Iterable<IPLMostRunCsvData> indiaCensusCSVS = () -> censusList;
-            StreamSupport.stream(indiaCensusCSVS.spliterator(), false)
-                    .map(IPLMostRunCsvData.class::cast)
-                    .forEach(csvCensus -> analysisMap.put(csvCensus.playerName, new IPLAnalysisDAO(csvCensus)));
-        } catch (IOException e) {
-            throw new IPLException(e.getMessage(),
-                    IPLException.ExceptionType.WRONG_FILE_PATH);
-        } catch (CsvBuilderException e) {
-            throw new IPLException(e.getMessage(),
-                    IPLException.ExceptionType.CENSUS_FILE_PROBLEM);
-        }
+        analysisMap = loadCensusCSVFileData(IPLMostRunCsvData.class, iplMostRunCsvFilePath);
         return analysisMap.size();
     }
 
-    public int loadWicketsIPLCSVFileData(String iplMostWicketsCsvFilePath)throws IPLException {
-        try (Reader reader = Files.newBufferedReader(Paths.get(iplMostWicketsCsvFilePath))) {
+    public int loadWicketsIPLCSVFileData(String iplMostWicketsCsvFilePath) throws IPLException {
+        analysisMap = loadCensusCSVFileData(IPLMostWicketsCsvData.class, iplMostWicketsCsvFilePath);
+        return analysisMap.size();
+    }
+
+    public <E> Map<String, IPLAnalysisDAO> loadCensusCSVFileData(Class<E> censusCSVClass, String csvFilePath) throws IPLException {
+        try (Reader reader = Files.newBufferedReader(Paths.get(csvFilePath))) {
             ICSVBuilder csvBuilder = CSVBuilderFactory.createCSVBuilder();
-            Iterator<IPLMostWicketsCsvData> censusList = csvBuilder.getCSVFileIterator(reader, IPLMostRunCsvData.class);
-            Iterable<IPLMostWicketsCsvData> indiaCensusCSVS = () -> censusList;
-            StreamSupport.stream(indiaCensusCSVS.spliterator(), false)
-                    .map(IPLMostRunCsvData.class::cast)
-                    .forEach(csvCensus -> analysisMap.put(csvCensus.playerName, new IPLAnalysisDAO(csvCensus)));
+            Iterator<E> censusList = csvBuilder.getCSVFileIterator(reader, censusCSVClass);
+            Iterable<E> CensusCSVS = () -> censusList;
+            if (censusCSVClass.getName().equals("cricketleagueanalysis.IPLMostRunCsvData")) {
+                StreamSupport.stream(CensusCSVS.spliterator(), false)
+                        .map(IPLMostRunCsvData.class::cast)
+                        .forEach(csvCensus -> analysisMap.put(csvCensus.playerName, new IPLAnalysisDAO(csvCensus)));
+            } else if (censusCSVClass.getName().equals("cricketleagueanalysis.IPLMostWicketsCsvData")) {
+                StreamSupport.stream(CensusCSVS.spliterator(), false)
+                        .map(IPLMostWicketsCsvData.class::cast)
+                        .forEach(csvCensus -> analysisMap.put(csvCensus.playerName, new IPLAnalysisDAO(csvCensus)));
+            }
         } catch (IOException e) {
             throw new IPLException(e.getMessage(),
                     IPLException.ExceptionType.WRONG_FILE_PATH);
@@ -63,7 +61,7 @@ public class IPLAnalysis {
             throw new IPLException(e.getMessage(),
                     IPLException.ExceptionType.CENSUS_FILE_PROBLEM);
         }
-        return analysisMap.size();
+        return analysisMap;
     }
 
     public String getTopAverageBattingPlayerName(SortedDataBaseOnField fieldName) throws IPLException {

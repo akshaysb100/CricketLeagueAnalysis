@@ -19,4 +19,9 @@ public class IPLAnalysisDAO{
         numberOf6s = iplMostRunCsvData.numberOfSix;
         numberOfRuns = iplMostRunCsvData.runs;
     }
+
+    public IPLAnalysisDAO(IPLMostWicketsCsvData iplMostWicketsCsvData) {
+        position = iplMostWicketsCsvData.position;
+        playerName = iplMostWicketsCsvData.playerName;
+    }
 }
