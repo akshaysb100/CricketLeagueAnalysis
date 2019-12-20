@@ -64,7 +64,7 @@ public class ILPBatsmanTest {
         String sortedData = null;
         try {
             iplAnalyser.loadIplData(Player.BATSMAN, IPL_MOST_RUN_CSV_FILE_PATH);
-            sortedData = iplAnalyser.getTopAverageBattingPlayerName(SortedDataBaseOnField.AVERAGE_BATSMAN);
+            sortedData = iplAnalyser.getTopAverageBattingPlayerName(SortedDataBaseOnBatsmanField.AVERAGE_BATSMAN);
             IPLBatsmanData[] censusCSV = new Gson().fromJson(sortedData, IPLBatsmanData[].class);
             Assert.assertEquals("MS Dhoni", censusCSV[0].playerName);
         } catch (IPLException e) {
@@ -77,7 +77,7 @@ public class ILPBatsmanTest {
         IPLAnalyser iplAnalyser = new IPLAnalyser();
         String sortedData = null;
         try {
-            sortedData = iplAnalyser.getTopAverageBattingPlayerName(SortedDataBaseOnField.AVERAGE_BATSMAN);
+            sortedData = iplAnalyser.getTopAverageBattingPlayerName(SortedDataBaseOnBatsmanField.AVERAGE_BATSMAN);
             IPLBatsmanData[] censusCSV = new Gson().fromJson(sortedData, IPLBatsmanData[].class);
             Assert.assertEquals("MS Dhoni", censusCSV[0].playerName);
         } catch (IPLException e) {
@@ -91,7 +91,7 @@ public class ILPBatsmanTest {
         String sortedData = null;
         try {
             iplAnalyser.loadIplData(Player.BATSMAN, IPL_MOST_RUN_CSV_FILE_PATH);
-            sortedData = iplAnalyser.getTopAverageBattingPlayerName(SortedDataBaseOnField.STRIKING_RATE);
+            sortedData = iplAnalyser.getTopAverageBattingPlayerName(SortedDataBaseOnBatsmanField.STRIKING_RATE);
             IPLBatsmanData[] censusCSV = new Gson().fromJson(sortedData, IPLBatsmanData[].class);
             Assert.assertEquals("Ishant Sharma", censusCSV[0].playerName);
         } catch (IPLException e) {
@@ -105,7 +105,7 @@ public class ILPBatsmanTest {
         String sortedData = null;
         try {
             iplAnalyser.loadIplData(Player.BATSMAN, IPL_MOST_RUN_CSV_FILE_PATH);
-            sortedData = iplAnalyser.getTopAverageBattingPlayerName(SortedDataBaseOnField.BY_4s_AND_6s);
+            sortedData = iplAnalyser.getTopAverageBattingPlayerName(SortedDataBaseOnBatsmanField.BY_4s_AND_6s);
             IPLBatsmanData[] censusCSV = new Gson().fromJson(sortedData, IPLBatsmanData[].class);
             Assert.assertEquals("Andre Russell", censusCSV[0].playerName);
         } catch (IPLException e) {
@@ -119,7 +119,7 @@ public class ILPBatsmanTest {
         String sortedData = null;
         try {
             iplAnalyser.loadIplData(Player.BATSMAN, IPL_MOST_RUN_CSV_FILE_PATH);
-            sortedData = iplAnalyser.getTopAverageBattingPlayerName(SortedDataBaseOnField.STRIKING_RATE_WITH_6S_And_4s);
+            sortedData = iplAnalyser.getTopAverageBattingPlayerName(SortedDataBaseOnBatsmanField.STRIKING_RATE_WITH_6S_And_4s);
             IPLBatsmanData[] censusCSV = new Gson().fromJson(sortedData, IPLBatsmanData[].class);
             Assert.assertEquals("Andre Russell", censusCSV[0].playerName);
         } catch (IPLException e) {
@@ -133,7 +133,7 @@ public class ILPBatsmanTest {
         String sortedData = null;
         try {
             iplAnalyser.loadIplData(Player.BATSMAN, IPL_MOST_RUN_CSV_FILE_PATH);
-            sortedData = iplAnalyser.getTopAverageBattingPlayerName(SortedDataBaseOnField.AVERAGE_WITH_BEST_STRIKING_RATE);
+            sortedData = iplAnalyser.getTopAverageBattingPlayerName(SortedDataBaseOnBatsmanField.AVERAGE_WITH_BEST_STRIKING_RATE);
             IPLBatsmanData[] censusCSV = new Gson().fromJson(sortedData, IPLBatsmanData[].class);
             Assert.assertEquals("MS Dhoni", censusCSV[0].playerName);
         } catch (IPLException e) {
@@ -147,7 +147,7 @@ public class ILPBatsmanTest {
         String sortedData = null;
         try {
             iplAnalyser.loadIplData(Player.BATSMAN, IPL_MOST_RUN_CSV_FILE_PATH);
-            sortedData = iplAnalyser.getTopAverageBattingPlayerName(SortedDataBaseOnField.MAXIMUM_RUN_WITH_AVERAGE);
+            sortedData = iplAnalyser.getTopAverageBattingPlayerName(SortedDataBaseOnBatsmanField.MAXIMUM_RUN_WITH_AVERAGE);
             IPLBatsmanData[] censusCSV = new Gson().fromJson(sortedData, IPLBatsmanData[].class);
             Assert.assertEquals("David Warner", censusCSV[0].playerName);
         } catch (IPLException e) {

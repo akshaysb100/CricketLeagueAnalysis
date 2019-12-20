@@ -21,5 +21,6 @@ public class IPLAnalyserDAO {
 
     public IPLAnalyserDAO(IPLBowlerData iplBowlerData) {
         playerName = iplBowlerData.playerName;
+        average = iplBowlerData.average;
     }
 }
