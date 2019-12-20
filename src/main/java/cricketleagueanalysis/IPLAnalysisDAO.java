@@ -1,11 +1,10 @@
 package cricketleagueanalysis;
 
-public class IPLAnalysisDAO{
-
+public class IPLAnalysisDAO {
     public int position;
     public String playerName;
     public Double strikeRate;
-    public  Double average;
+    public Double average;
     public int numberOf6s;
     public int numberOf4s;
     public int numberOfRuns;
@@ -21,7 +20,6 @@ public class IPLAnalysisDAO{
     }
 
     public IPLAnalysisDAO(IPLMostWicketsCsvData iplMostWicketsCsvData) {
-        position = iplMostWicketsCsvData.position;
         playerName = iplMostWicketsCsvData.playerName;
     }
 }
