@@ -18,14 +18,16 @@ public class IPLAnalyser {
         this.fieldsName.put(SortedDataBaseOnBatsmanField.STRIKING_RATE_WITH_6S_And_4s, new SortMethodContainer().reversed().thenComparing(compare -> compare.strikeRate));
         Comparator<IPLAnalyserDAO> average = Comparator.comparing(censusDAO -> censusDAO.average, Comparator.reverseOrder());
         this.fieldsName.put(SortedDataBaseOnBatsmanField.AVERAGE_WITH_BEST_STRIKING_RATE, average.thenComparing(censusDAO -> censusDAO.strikeRate, Comparator.reverseOrder()));
-        Comparator<IPLAnalyserDAO> runs = Comparator.comparing(censusDAO -> censusDAO.numberOfRuns, Comparator.reverseOrder());
-        this.fieldsName.put(SortedDataBaseOnBatsmanField.MAXIMUM_RUN_WITH_AVERAGE, runs.thenComparing(average));
+        Comparator<IPLAnalyserDAO> bestRuns = Comparator.comparing(censusDAO -> censusDAO.numberOfRuns, Comparator.reverseOrder());
+        this.fieldsName.put(SortedDataBaseOnBatsmanField.MAXIMUM_RUN_WITH_AVERAGE, bestRuns.thenComparing(average));
         this.fieldsName.put(SortedDataBaseOnBatsmanField.AVERAGE_BOWLER, Comparator.comparing(census -> census.average.intValue()));
         this.fieldsName.put(SortedDataBaseOnBatsmanField.STRIKING_RATE_BOWLER, Comparator.comparing(census -> census.strikeRate.intValue()));
         this.fieldsName.put(SortedDataBaseOnBatsmanField.ECONOMY, Comparator.comparing(census -> census.economy));
         this.fieldsName.put(SortedDataBaseOnBatsmanField.BY_4w_AND_5w, new SortedByWickets().reversed().thenComparing(census -> census.strikeRate));
         Comparator<IPLAnalyserDAO> bowlingAverage = Comparator.comparing(censusDAO -> censusDAO.average, Comparator.reverseOrder());
         this.fieldsName.put(SortedDataBaseOnBatsmanField.AVERAGE_WITH_BEST_STRIKING_RATE_BOWLER, bowlingAverage.thenComparing(censusDAO -> censusDAO.strikeRate));
+        Comparator<IPLAnalyserDAO> bestWickets = Comparator.comparing(censusDAO -> censusDAO.wickets, Comparator.reverseOrder());
+        this.fieldsName.put(SortedDataBaseOnBatsmanField.MAXIMUM_WICKET_WITH_AVERAGE, bestWickets.thenComparing(bowlingAverage));
     }
 
     public int loadIplData(Player fileEnum, String csvFilePath) throws IPLException {

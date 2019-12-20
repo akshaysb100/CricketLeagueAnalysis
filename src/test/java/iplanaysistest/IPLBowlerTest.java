@@ -103,7 +103,7 @@ public class IPLBowlerTest {
     }
 
     @Test
-    public void givenIPLMostRunCSVFile_WhoHadGreatAverageWithBEstStrikingRates_ShouldReturnPlayerName() {
+    public void givenIPLMostWicketCSVFile_WhoHadGreatAverageWithBEstStrikingRates_ShouldReturnPlayerName() {
         IPLAnalyser iplAnalyser = new IPLAnalyser();
         String sortedData = null;
         try {
@@ -116,4 +116,17 @@ public class IPLBowlerTest {
         }
     }
 
+    @Test
+    public void givenIPLMostWicketCSVFile_WhoHitMaximumRunsWithBestAverage_ShouldReturnPlayerName() {
+        IPLAnalyser iplAnalyser = new IPLAnalyser();
+        String sortedData = null;
+        try {
+            iplAnalyser.loadIplData(Player.BOWLER, IPL_MOST_WICKETS_CSV_FILE_PATH);
+            sortedData = iplAnalyser.getTopAverageBattingPlayerName(SortedDataBaseOnBatsmanField.MAXIMUM_WICKET_WITH_AVERAGE);
+            IPLBowlerData[] iplCSVData = new Gson().fromJson(sortedData, IPLBowlerData[].class);
+            Assert.assertEquals("Imran Tahir", iplCSVData[0].playerName);
+        } catch (IPLException e) {
+            Assert.assertEquals(IPLException.ExceptionType.WRONG_FILE_PATH, e.type);
+        }
+    }
 }
