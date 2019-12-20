@@ -101,4 +101,19 @@ public class IPLBowlerTest {
             Assert.assertEquals(IPLException.ExceptionType.WRONG_FILE_PATH, e.type);
         }
     }
+
+    @Test
+    public void givenIPLMostRunCSVFile_WhoHadGreatAverageWithBEstStrikingRates_ShouldReturnPlayerName() {
+        IPLAnalyser iplAnalyser = new IPLAnalyser();
+        String sortedData = null;
+        try {
+            iplAnalyser.loadIplData(Player.BOWLER, IPL_MOST_WICKETS_CSV_FILE_PATH);
+            sortedData = iplAnalyser.getTopAverageBattingPlayerName(SortedDataBaseOnBatsmanField.AVERAGE_WITH_BEST_STRIKING_RATE_BOWLER);
+            IPLBowlerData[] iplCSVData = new Gson().fromJson(sortedData, IPLBowlerData[].class);
+            Assert.assertEquals("Krishnappa Gowtham", iplCSVData[0].playerName);
+        } catch (IPLException e) {
+            Assert.assertEquals(IPLException.ExceptionType.WRONG_FILE_PATH, e.type);
+        }
+    }
+
 }
