@@ -87,4 +87,18 @@ public class IPLBowlerTest {
             Assert.assertEquals(IPLException.ExceptionType.CENSUS_FILE_PROBLEM, e.type);
         }
     }
+
+    @Test
+    public void givenIPLMostWicketCSVFile_TopStrikingRatesOfBowlerWithMaximum5wAnd4w_ShouldReturnPlayerName() {
+        IPLAnalyser iplAnalyser = new IPLAnalyser();
+        String sortedData = null;
+        try {
+            iplAnalyser.loadIplData(Player.BOWLER, IPL_MOST_WICKETS_CSV_FILE_PATH);
+            sortedData = iplAnalyser.getTopAverageBattingPlayerName(SortedDataBaseOnBatsmanField.BY_4w_AND_5w);
+            IPLBowlerData[] iplCSVData = new Gson().fromJson(sortedData, IPLBowlerData[].class);
+            Assert.assertEquals("Kagiso Rabada", iplCSVData[0].playerName);
+        } catch (IPLException e) {
+            Assert.assertEquals(IPLException.ExceptionType.WRONG_FILE_PATH, e.type);
+        }
+    }
 }

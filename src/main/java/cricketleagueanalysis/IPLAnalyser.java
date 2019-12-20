@@ -23,6 +23,7 @@ public class IPLAnalyser {
         this.fieldsName.put(SortedDataBaseOnBatsmanField.AVERAGE_BOWLER, Comparator.comparing(census -> census.average.intValue()));
         this.fieldsName.put(SortedDataBaseOnBatsmanField.STRIKING_RATE_BOWLER, Comparator.comparing(census -> census.strikeRate.intValue()));
         this.fieldsName.put(SortedDataBaseOnBatsmanField.ECONOMY, Comparator.comparing(census -> census.economy));
+        this.fieldsName.put(SortedDataBaseOnBatsmanField.BY_4w_AND_5w, new SortedByWickets().reversed().thenComparing(census -> census.strikeRate));
     }
 
     public int loadIplData(Player fileEnum, String csvFilePath) throws IPLException {
