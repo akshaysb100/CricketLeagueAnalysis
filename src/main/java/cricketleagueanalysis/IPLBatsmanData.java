@@ -2,7 +2,7 @@ package cricketleagueanalysis;
 
 import com.opencsv.bean.CsvBindByName;
 
-public class IPLMostRunCsvData {
+public class IPLBatsmanData {
     @CsvBindByName(column = "POS")
     public int position;
 

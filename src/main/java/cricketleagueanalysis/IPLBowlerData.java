@@ -2,11 +2,11 @@ package cricketleagueanalysis;
 
 import com.opencsv.bean.CsvBindByName;
 
-public class IPLMostWicketsCsvData {
+public class IPLBowlerData {
     
     @CsvBindByName(column = "PLAYER")
     public String playerName;
 
-    public IPLMostWicketsCsvData() {
+    public IPLBowlerData() {
     }
 }
