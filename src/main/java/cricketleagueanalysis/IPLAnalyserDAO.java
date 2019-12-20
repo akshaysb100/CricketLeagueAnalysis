@@ -1,7 +1,8 @@
 package cricketleagueanalysis;
 
 public class IPLAnalyserDAO {
-    private int wickets;
+    public Double economy;
+    public int wickets;
     public int position;
     public String playerName;
     public Double strikeRate;
@@ -25,5 +26,6 @@ public class IPLAnalyserDAO {
         average = iplBowlerData.average;
         strikeRate = iplBowlerData.strikeRate;
         wickets =iplBowlerData.wickets;
+        economy = iplBowlerData.economy;
     }
 }

@@ -20,8 +20,9 @@ public class IPLAnalyser {
         this.fieldsName.put(SortedDataBaseOnBatsmanField.AVERAGE_WITH_BEST_STRIKING_RATE, comp.thenComparing(censusDAO -> censusDAO.strikeRate, Comparator.reverseOrder()));
         Comparator<IPLAnalyserDAO> runs = Comparator.comparing(censusDAO -> censusDAO.numberOfRuns, Comparator.reverseOrder());
         this.fieldsName.put(SortedDataBaseOnBatsmanField.MAXIMUM_RUN_WITH_AVERAGE, runs.thenComparing(comp));
-        this.fieldsName.put(SortedDataBaseOnBatsmanField.AVERAGE_BOWLER, Comparator.comparing(census -> census.average.intValue() != 0));
-        this.fieldsName.put(SortedDataBaseOnBatsmanField.STRIKING_RATE_BOWLER, Comparator.comparing(census -> census.strikeRate.intValue() != 0));
+        this.fieldsName.put(SortedDataBaseOnBatsmanField.AVERAGE_BOWLER, Comparator.comparing(census -> census.average.intValue()));
+        this.fieldsName.put(SortedDataBaseOnBatsmanField.STRIKING_RATE_BOWLER, Comparator.comparing(census -> census.strikeRate.intValue()));
+        this.fieldsName.put(SortedDataBaseOnBatsmanField.ECONOMY, Comparator.comparing(census -> census.economy));
     }
 
     public int loadIplData(Player fileEnum, String csvFilePath) throws IPLException {

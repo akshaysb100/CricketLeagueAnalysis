@@ -16,6 +16,9 @@ public class IPLBowlerData {
     @CsvBindByName(column = "Wkt")
     public int wickets;
 
+    @CsvBindByName(column = "Econ")
+    public Double  economy;
+
     public IPLBowlerData() {
     }
 }
