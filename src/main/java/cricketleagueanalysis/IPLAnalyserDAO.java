@@ -1,6 +1,7 @@
 package cricketleagueanalysis;
 
 public class IPLAnalyserDAO {
+    private int wickets;
     public int position;
     public String playerName;
     public Double strikeRate;
@@ -22,5 +23,7 @@ public class IPLAnalyserDAO {
     public IPLAnalyserDAO(IPLBowlerData iplBowlerData) {
         playerName = iplBowlerData.playerName;
         average = iplBowlerData.average;
+        strikeRate = iplBowlerData.strikeRate;
+        wickets =iplBowlerData.wickets;
     }
 }

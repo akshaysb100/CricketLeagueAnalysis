@@ -10,6 +10,12 @@ public class IPLBowlerData {
     @CsvBindByName(column = "Avg")
     public Double average;
 
+    @CsvBindByName(column = "SR")
+    public Double strikeRate;
+
+    @CsvBindByName(column = "Wkt")
+    public int wickets;
+
     public IPLBowlerData() {
     }
 }

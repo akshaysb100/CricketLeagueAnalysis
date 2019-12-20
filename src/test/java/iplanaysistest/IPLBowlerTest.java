@@ -40,8 +40,35 @@ public class IPLBowlerTest {
         try {
             iplAnalyser.loadIplData(Player.BOWLER, IPL_MOST_WICKETS_CSV_FILE_PATH);
             sortedData = iplAnalyser.getTopAverageBattingPlayerName(SortedDataBaseOnBatsmanField.AVERAGE_BOWLER);
-            IPLBowlerData[] censusCSV = new Gson().fromJson(sortedData, IPLBowlerData[].class);
-            Assert.assertEquals("Suresh Raina", censusCSV[0].playerName);
+            IPLBowlerData[] iplCSVData = new Gson().fromJson(sortedData, IPLBowlerData[].class);
+            Assert.assertEquals("Suresh Raina", iplCSVData[0].playerName);
+        } catch (IPLException e) {
+            Assert.assertEquals(IPLException.ExceptionType.CENSUS_FILE_PROBLEM, e.type);
+        }
+    }
+
+    @Test
+    public void givenIPLMostWicketCSVFile_DataNotLoad_ShouldThrowException() {
+        IPLAnalyser iplAnalyser = new IPLAnalyser();
+        String sortedData = null;
+        try {
+            sortedData = iplAnalyser.getTopAverageBattingPlayerName(SortedDataBaseOnBatsmanField.AVERAGE_BOWLER);
+            IPLBowlerData[] iplCSVData = new Gson().fromJson(sortedData, IPLBowlerData[].class);
+            Assert.assertEquals("Suresh Raina", iplCSVData[0].playerName);
+        } catch (IPLException e) {
+            Assert.assertEquals(IPLException.ExceptionType.CENSUS_FILE_PROBLEM, e.type);
+        }
+    }
+
+    @Test
+    public void givenIPLMostRunCSVFile_TopStrikingRatesOfBowler_ShouldReturnPlayerName() {
+        IPLAnalyser iplAnalyser = new IPLAnalyser();
+        String sortedData = null;
+        try {
+            iplAnalyser.loadIplData(Player.BOWLER, IPL_MOST_WICKETS_CSV_FILE_PATH);
+            sortedData = iplAnalyser.getTopAverageBattingPlayerName(SortedDataBaseOnBatsmanField.STRIKING_RATE_BOWLER);
+            IPLBowlerData[] iplCSVData = new Gson().fromJson(sortedData, IPLBowlerData[].class);
+            Assert.assertEquals("Suresh Raina", iplCSVData[0].playerName);
         } catch (IPLException e) {
             Assert.assertEquals(IPLException.ExceptionType.CENSUS_FILE_PROBLEM, e.type);
         }
