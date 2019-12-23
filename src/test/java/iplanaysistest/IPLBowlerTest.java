@@ -3,9 +3,15 @@ package iplanaysistest;
 import com.google.gson.Gson;
 import cricketleagueanalysis.*;
 import org.junit.Assert;
+import org.junit.Rule;
 import org.junit.Test;
+import org.mockito.junit.MockitoJUnit;
+import org.mockito.junit.MockitoRule;
 
 public class IPLBowlerTest {
+
+    @Rule
+    public MockitoRule mockitoRule = MockitoJUnit.rule();
 
     private static final String IPL_MOST_RUN_CSV_FILE_PATH = "./src/test/resources/IPL2019FactsheetMostRuns.csv";
     private static final String IPL_MOST_WICKETS_CSV_FILE_PATH = "./src/test/resources/IPL2019FactsheetMostWkts.csv";
@@ -138,7 +144,7 @@ public class IPLBowlerTest {
         try {
             iplAnalyser.loadIplData(Player.All_ROUNDER, IPL_MOST_RUN_CSV_FILE_PATH, IPL_MOST_WICKETS_CSV_FILE_PATH);
             String sortedData = iplAnalyser.getSortedPlayerData(SortedDataBaseOnField.BEST_BOWLING_BATTING_AVERAGE);
-            IPLBowlerData[] iplCSVData = new Gson().fromJson(sortedData, IPLBowlerData[].class);
+            IPLAnalyserDAO[] iplCSVData = new Gson().fromJson(sortedData, IPLAnalyserDAO[].class);
             Assert.assertEquals("Andre Russell", iplCSVData[0].playerName);
         } catch (IPLException e) {
             Assert.assertEquals(IPLException.ExceptionType.WRONG_FILE_PATH, e.type);
@@ -151,8 +157,8 @@ public class IPLBowlerTest {
         try {
             iplAnalyser.loadIplData(Player.All_ROUNDER, IPL_MOST_RUN_CSV_FILE_PATH, IPL_MOST_WICKETS_CSV_FILE_PATH);
             String sortedData = iplAnalyser.getSortedPlayerData(SortedDataBaseOnField.BEST_ALL_ROUNDER);
-            IPLBowlerData[] iplCSVData = new Gson().fromJson(sortedData, IPLBowlerData[].class);
-            Assert.assertEquals("David Warner", iplCSVData[0].playerName);
+            IPLAnalyserDAO[] iplCSVData = new Gson().fromJson(sortedData, IPLAnalyserDAO[].class);
+            Assert.assertEquals("Marcus Stoinis", iplCSVData[0].playerName);
         } catch (IPLException e) {
             Assert.assertEquals(IPLException.ExceptionType.WRONG_FILE_PATH, e.type);
         }

@@ -29,7 +29,8 @@ public class IPLAnalyser {
         this.fieldsName.put(SortedDataBaseOnField.AVERAGE_WITH_BEST_STRIKING_RATE_BOWLER, bowlingAverage.thenComparing(censusDAO -> censusDAO.strikeRate));
         Comparator<IPLAnalyserDAO> bestWickets = Comparator.comparing(censusDAO -> censusDAO.wickets, Comparator.reverseOrder());
         this.fieldsName.put(SortedDataBaseOnField.MAXIMUM_WICKET_WITH_AVERAGE, bestWickets.thenComparing(bowlingAverage));
-        this.fieldsName.put(SortedDataBaseOnField.BEST_BOWLING_BATTING_AVERAGE,  new SortMethodContainer().reversed().thenComparing(compare -> compare.strikeRate));
+        Comparator<IPLAnalyserDAO> batingAverage = Comparator.comparing(censusDAO -> censusDAO.batsmanAverage, Comparator.reverseOrder());
+        this.fieldsName.put(SortedDataBaseOnField.BEST_BOWLING_BATTING_AVERAGE,  batingAverage.thenComparing(bowlingAverage));
         this.fieldsName.put(SortedDataBaseOnField.BEST_ALL_ROUNDER, new MostRunAndWickets().reversed());
     }
 
@@ -44,7 +45,7 @@ public class IPLAnalyser {
             throw new IPLException("No Data", IPLException
                     .ExceptionType.CENSUS_FILE_PROBLEM);
         }
-        ArrayList arrayList = this.iplAnalysisMap.values().stream()
+        ArrayList<IPLAnalyserDAO> arrayList = this.iplAnalysisMap.values().stream()
                 .sorted(this.fieldsName.get(fieldName))
                 .collect(toCollection(ArrayList::new));
         String sortedStateCensus = new Gson().toJson(arrayList);

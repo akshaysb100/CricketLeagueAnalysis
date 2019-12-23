@@ -17,5 +17,6 @@ dependencies {
     compile(files("/home/user/IdeaProjects/Builder/out/artifacts/Builder_jar/Builder.jar") )
    // testCompile group: 'org.mockito', name: 'mockito-all', version: '1.10.19'
     testImplementation 'org.mockito:mockito-core:2.7.22'
+    testCompile group: 'org.mockito', name: 'mockito-core', version: '3.+'
 
 }
