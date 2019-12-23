@@ -15,10 +15,10 @@ import java.util.stream.StreamSupport;
 
 public class AllRounderAdapter extends IPLAdapter {
     Map<String, IPLAnalyserDAO> map1 = new HashMap<>();
+
     @Override
     public Map<String, IPLAnalyserDAO> loadIplData(String... filePath) throws IPLException {
         map1 = super.loadIplCSVFileData(IPLBatsmanData.class, filePath[0]);
-        if (filePath.length == 3)
             this.loadBowlerData(filePath[1]);
         return map1;
     }
@@ -45,5 +45,4 @@ public class AllRounderAdapter extends IPLAdapter {
         }
         return map1.size();
     }
-
 }

@@ -145,7 +145,7 @@ public class IPLBowlerTest {
             iplAnalyser.loadIplData(Player.All_ROUNDER, IPL_MOST_RUN_CSV_FILE_PATH, IPL_MOST_WICKETS_CSV_FILE_PATH);
             String sortedData = iplAnalyser.getSortedPlayerData(SortedDataBaseOnField.BEST_BOWLING_BATTING_AVERAGE);
             IPLAnalyserDAO[] iplCSVData = new Gson().fromJson(sortedData, IPLAnalyserDAO[].class);
-            Assert.assertEquals("Andre Russell", iplCSVData[0].playerName);
+            Assert.assertEquals("MS Dhoni", iplCSVData[0].playerName);
         } catch (IPLException e) {
             Assert.assertEquals(IPLException.ExceptionType.WRONG_FILE_PATH, e.type);
         }

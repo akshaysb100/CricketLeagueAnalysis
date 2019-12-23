@@ -11,6 +11,9 @@ import org.mockito.junit.MockitoRule;
 
 public class ILPBatsmanTest {
 
+    @Mock
+    IPLAdapter iplAdapter;
+
     @Rule
     public MockitoRule mockitoRule = MockitoJUnit.rule();
 
@@ -21,6 +24,7 @@ public class ILPBatsmanTest {
     @Test
     public void givenIPLMostRunCSVFile_ShouldGetMapOfCorrectSize() {
         IPLAnalyser iplAnalyser = new IPLAnalyser();
+        iplAnalyser.setIPLAdapter(iplAdapter);
         int numOfRecords = 0;
         try {
             numOfRecords = iplAnalyser.loadIplData(Player.BATSMAN, IPL_MOST_RUN_CSV_FILE_PATH);

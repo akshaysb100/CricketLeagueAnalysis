@@ -9,6 +9,7 @@ import static java.util.stream.Collectors.toCollection;
 public class IPLAnalyser {
     Map<String, IPLAnalyserDAO> iplAnalysisMap = null;
     Map<SortedDataBaseOnField, Comparator<IPLAnalyserDAO>> fieldsName = null;
+    public IPLAdapter iplAdapter;
 
     public IPLAnalyser() {
         this.iplAnalysisMap = new HashMap<>();
@@ -29,9 +30,13 @@ public class IPLAnalyser {
         this.fieldsName.put(SortedDataBaseOnField.AVERAGE_WITH_BEST_STRIKING_RATE_BOWLER, bowlingAverage.thenComparing(censusDAO -> censusDAO.strikeRate));
         Comparator<IPLAnalyserDAO> bestWickets = Comparator.comparing(censusDAO -> censusDAO.wickets, Comparator.reverseOrder());
         this.fieldsName.put(SortedDataBaseOnField.MAXIMUM_WICKET_WITH_AVERAGE, bestWickets.thenComparing(bowlingAverage));
-        Comparator<IPLAnalyserDAO> batingAverage = Comparator.comparing(censusDAO -> censusDAO.batsmanAverage, Comparator.reverseOrder());
-        this.fieldsName.put(SortedDataBaseOnField.BEST_BOWLING_BATTING_AVERAGE,  batingAverage.thenComparing(bowlingAverage));
+        Comparator<IPLAnalyserDAO> batingAverage = Comparator.comparing(censusDAO -> censusDAO.batsmanAverage,Comparator.reverseOrder());
+        this.fieldsName.put(SortedDataBaseOnField.BEST_BOWLING_BATTING_AVERAGE,  bowlingAverage.thenComparing(batingAverage));
         this.fieldsName.put(SortedDataBaseOnField.BEST_ALL_ROUNDER, new MostRunAndWickets().reversed());
+    }
+
+    public void setIPLAdapter(IPLAdapter iplAdapter) {
+      this.iplAdapter=iplAdapter;
     }
 
     public int loadIplData(Player playerType, String... csvFilePath) throws IPLException {
