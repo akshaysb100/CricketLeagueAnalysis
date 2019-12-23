@@ -14,12 +14,12 @@ import java.util.Map;
 import java.util.stream.StreamSupport;
 
 public abstract class IPLAdapter {
-    public abstract Map<String, IPLAnalyserDAO> loadIplData(Player fileEnum, String filePath) throws IPLException;
+    public abstract Map<String, IPLAnalyserDAO> loadIplData(String... filePath) throws IPLException;
 
     Map<String, IPLAnalyserDAO> analysisMap = new HashMap<String, IPLAnalyserDAO>();
 
-    public <E> Map<String, IPLAnalyserDAO> loadIplCSVFileData(Class<E> censusCSVClass, String csvFilePath) throws IPLException {
-        try (Reader reader = Files.newBufferedReader(Paths.get(csvFilePath))) {
+    public <E> Map<String, IPLAnalyserDAO> loadIplCSVFileData(Class<E> censusCSVClass, String... csvFilePath) throws IPLException {
+        try (Reader reader = Files.newBufferedReader(Paths.get(csvFilePath[0]))) {
             ICSVBuilder csvBuilder = CSVBuilderFactory.createCSVBuilder();
             Iterator<E> censusList = csvBuilder.getCSVFileIterator(reader, censusCSVClass);
             Iterable<E> CensusCSVS = () -> censusList;

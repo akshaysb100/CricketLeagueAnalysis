@@ -1,5 +1,5 @@
 package cricketleagueanalysis;
 
 public enum Player {
-    BATSMAN, BOWLER;
+    BATSMAN, BOWLER,All_ROUNDER
 }

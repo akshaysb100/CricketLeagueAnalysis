@@ -44,4 +44,7 @@ public class IPLBatsmanData {
 
     @CsvBindByName(column = "6s", required = true)
     public int numberOfSix;
+
+    public IPLBatsmanData() {
+    }
 }

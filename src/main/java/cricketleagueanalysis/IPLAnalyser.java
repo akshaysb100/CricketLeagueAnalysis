@@ -7,41 +7,44 @@ import java.util.*;
 import static java.util.stream.Collectors.toCollection;
 
 public class IPLAnalyser {
-    Map<String, IPLAnalyserDAO> analysisMap = new HashMap<String, IPLAnalyserDAO>();
-    Map<SortedDataBaseOnBatsmanField, Comparator<IPLAnalyserDAO>> fieldsName = null;
+    Map<String, IPLAnalyserDAO> iplAnalysisMap = null;
+    Map<SortedDataBaseOnField, Comparator<IPLAnalyserDAO>> fieldsName = null;
 
     public IPLAnalyser() {
+        this.iplAnalysisMap = new HashMap<>();
         this.fieldsName = new HashMap<>();
-        this.fieldsName.put(SortedDataBaseOnBatsmanField.AVERAGE_BATSMAN, Comparator.comparing(census -> census.average, Comparator.reverseOrder()));
-        this.fieldsName.put(SortedDataBaseOnBatsmanField.STRIKING_RATE, Comparator.comparing(census -> census.strikeRate, Comparator.reverseOrder()));
-        this.fieldsName.put(SortedDataBaseOnBatsmanField.BY_4s_AND_6s, new SortMethodContainer().reversed());
-        this.fieldsName.put(SortedDataBaseOnBatsmanField.STRIKING_RATE_WITH_6S_And_4s, new SortMethodContainer().reversed().thenComparing(compare -> compare.strikeRate));
-        Comparator<IPLAnalyserDAO> average = Comparator.comparing(censusDAO -> censusDAO.average, Comparator.reverseOrder());
-        this.fieldsName.put(SortedDataBaseOnBatsmanField.AVERAGE_WITH_BEST_STRIKING_RATE, average.thenComparing(censusDAO -> censusDAO.strikeRate, Comparator.reverseOrder()));
+        this.fieldsName.put(SortedDataBaseOnField.AVERAGE_BATSMAN, Comparator.comparing(census -> census.batsmanAverage, Comparator.reverseOrder()));
+        this.fieldsName.put(SortedDataBaseOnField.STRIKING_RATE, Comparator.comparing(census -> census.strikeRate, Comparator.reverseOrder()));
+        this.fieldsName.put(SortedDataBaseOnField.BY_4s_AND_6s, new SortMethodContainer().reversed());
+        this.fieldsName.put(SortedDataBaseOnField.STRIKING_RATE_WITH_6S_And_4s, new SortMethodContainer().reversed().thenComparing(compare -> compare.strikeRate));
+        Comparator<IPLAnalyserDAO> average = Comparator.comparing(censusDAO -> censusDAO.batsmanAverage, Comparator.reverseOrder());
+        this.fieldsName.put(SortedDataBaseOnField.AVERAGE_WITH_BEST_STRIKING_RATE, average.thenComparing(censusDAO -> censusDAO.strikeRate, Comparator.reverseOrder()));
         Comparator<IPLAnalyserDAO> bestRuns = Comparator.comparing(censusDAO -> censusDAO.numberOfRuns, Comparator.reverseOrder());
-        this.fieldsName.put(SortedDataBaseOnBatsmanField.MAXIMUM_RUN_WITH_AVERAGE, bestRuns.thenComparing(average));
-        this.fieldsName.put(SortedDataBaseOnBatsmanField.AVERAGE_BOWLER, Comparator.comparing(census -> census.average.intValue()));
-        this.fieldsName.put(SortedDataBaseOnBatsmanField.STRIKING_RATE_BOWLER, Comparator.comparing(census -> census.strikeRate.intValue()));
-        this.fieldsName.put(SortedDataBaseOnBatsmanField.ECONOMY, Comparator.comparing(census -> census.economy));
-        this.fieldsName.put(SortedDataBaseOnBatsmanField.BY_4w_AND_5w, new SortedByWickets().reversed().thenComparing(census -> census.strikeRate));
-        Comparator<IPLAnalyserDAO> bowlingAverage = Comparator.comparing(censusDAO -> censusDAO.average, Comparator.reverseOrder());
-        this.fieldsName.put(SortedDataBaseOnBatsmanField.AVERAGE_WITH_BEST_STRIKING_RATE_BOWLER, bowlingAverage.thenComparing(censusDAO -> censusDAO.strikeRate));
+        this.fieldsName.put(SortedDataBaseOnField.MAXIMUM_RUN_WITH_AVERAGE, bestRuns.thenComparing(average));
+        this.fieldsName.put(SortedDataBaseOnField.AVERAGE_BOWLER, Comparator.comparing(census -> census.bowlerAverage.intValue()));
+        this.fieldsName.put(SortedDataBaseOnField.STRIKING_RATE_BOWLER, Comparator.comparing(census -> census.strikeRate.intValue()));
+        this.fieldsName.put(SortedDataBaseOnField.ECONOMY, Comparator.comparing(census -> census.economy));
+        this.fieldsName.put(SortedDataBaseOnField.BY_4w_AND_5w, new SortedByWickets().reversed().thenComparing(census -> census.strikeRate));
+        Comparator<IPLAnalyserDAO> bowlingAverage = Comparator.comparing(censusDAO -> censusDAO.bowlerAverage, Comparator.reverseOrder());
+        this.fieldsName.put(SortedDataBaseOnField.AVERAGE_WITH_BEST_STRIKING_RATE_BOWLER, bowlingAverage.thenComparing(censusDAO -> censusDAO.strikeRate));
         Comparator<IPLAnalyserDAO> bestWickets = Comparator.comparing(censusDAO -> censusDAO.wickets, Comparator.reverseOrder());
-        this.fieldsName.put(SortedDataBaseOnBatsmanField.MAXIMUM_WICKET_WITH_AVERAGE, bestWickets.thenComparing(bowlingAverage));
+        this.fieldsName.put(SortedDataBaseOnField.MAXIMUM_WICKET_WITH_AVERAGE, bestWickets.thenComparing(bowlingAverage));
+        this.fieldsName.put(SortedDataBaseOnField.BEST_BOWLING_BATTING_AVERAGE,  new SortMethodContainer().reversed().thenComparing(compare -> compare.strikeRate));
+        this.fieldsName.put(SortedDataBaseOnField.BEST_ALL_ROUNDER, new MostRunAndWickets().reversed());
     }
 
-    public int loadIplData(Player fileEnum, String csvFilePath) throws IPLException {
-        IPLAdapter iplAdapter = IPLObjectFactory.getIPLDataObject(fileEnum);
-        analysisMap = iplAdapter.loadIplData(fileEnum, csvFilePath);
-        return analysisMap.size();
+    public int loadIplData(Player playerType, String... csvFilePath) throws IPLException {
+        IPLAdapter iplAdapter = IPLObjectFactory.getIPLDataObject(playerType);
+        this.iplAnalysisMap = iplAdapter.loadIplData(csvFilePath);
+        return this.iplAnalysisMap.size();
     }
 
-    public String getTopAverageBattingPlayerName(SortedDataBaseOnBatsmanField fieldName) throws IPLException {
-        if (analysisMap == null || analysisMap.size() == 0) {
+    public String getSortedPlayerData(SortedDataBaseOnField fieldName) throws IPLException {
+        if (this.iplAnalysisMap == null || this.iplAnalysisMap.size() == 0) {
             throw new IPLException("No Data", IPLException
                     .ExceptionType.CENSUS_FILE_PROBLEM);
         }
-        ArrayList arrayList = analysisMap.values().stream()
+        ArrayList arrayList = this.iplAnalysisMap.values().stream()
                 .sorted(this.fieldsName.get(fieldName))
                 .collect(toCollection(ArrayList::new));
         String sortedStateCensus = new Gson().toJson(arrayList);

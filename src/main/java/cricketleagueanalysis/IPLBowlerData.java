@@ -13,7 +13,7 @@ public class IPLBowlerData {
     @CsvBindByName(column = "SR", required = true)
     public Double strikeRate;
 
-    @CsvBindByName(column = "Wkt", required = true)
+    @CsvBindByName(column = "Wkts", required = true)
     public int wickets;
 
     @CsvBindByName(column = "Econ", required = true)

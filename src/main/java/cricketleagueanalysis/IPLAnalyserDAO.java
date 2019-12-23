@@ -8,16 +8,20 @@ public class IPLAnalyserDAO {
     public int position;
     public String playerName;
     public Double strikeRate;
-    public Double average;
+    public Double batsmanAverage;
+    public Double bowlerAverage;
     public int numberOf6s;
     public int numberOf4s;
     public int numberOfRuns;
+
+    public IPLAnalyserDAO() {
+    }
 
     public IPLAnalyserDAO(IPLBatsmanData iplBatsmanData) {
         position = iplBatsmanData.position;
         playerName = iplBatsmanData.playerName;
         strikeRate = iplBatsmanData.strikeRate;
-        average = iplBatsmanData.average;
+        batsmanAverage = iplBatsmanData.average;
         numberOf4s = iplBatsmanData.numberOfFours;
         numberOf6s = iplBatsmanData.numberOfSix;
         numberOfRuns = iplBatsmanData.runs;
@@ -25,7 +29,7 @@ public class IPLAnalyserDAO {
 
     public IPLAnalyserDAO(IPLBowlerData iplBowlerData) {
         playerName = iplBowlerData.playerName;
-        average = iplBowlerData.average;
+        bowlerAverage = iplBowlerData.average;
         strikeRate = iplBowlerData.strikeRate;
         wickets =iplBowlerData.wickets;
         economy = iplBowlerData.economy;
