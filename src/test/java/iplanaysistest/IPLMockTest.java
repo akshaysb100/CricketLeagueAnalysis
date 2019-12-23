@@ -53,21 +53,5 @@ public class IPLMockTest {
         } catch (IPLException e) {
             e.printStackTrace();
         }
-
     }
-
-    @Test
-    public void givenCricketLeagueData_MockitoTest() {
-        try {
-            IPLAdapter iplAdapter = mock(IPLBatsmanAdapter.class);
-            IPLAnalyser  mostWickets = new IPLAnalyser();
-            int i = mostWickets.loadIplData(Player.BATSMAN,IPL_MOST_RUN_CSV_FILE_PATH);
-            when(iplAdapter.loadIplData(IPL_MOST_RUN_CSV_FILE_PATH)).thenReturn(playerList);
-            Assert.assertEquals(100 , i);
-        } catch (IPLException e) {
-            e.printStackTrace();
-        }
-    }
-
-
 }
