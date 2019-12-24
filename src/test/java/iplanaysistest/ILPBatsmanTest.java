@@ -172,4 +172,18 @@ public class ILPBatsmanTest {
             Assert.assertEquals(IPLException.ExceptionType.WRONG_FILE_PATH, e.type);
         }
     }
+
+    @Test
+    public void givenIPLCSV_WhenPassWrongFile_ShouldThrowException() {
+        IPLAnalyser iplAnalyser = new IPLAnalyser();
+        iplAnalyser.setIPLAdapter(new IPLAllRounderAdapter());
+        try {
+            iplAnalyser.loadIplData(Player.All_ROUNDER, IPL_MOST_RUN_CSV_FILE_PATH, WRONG_CSV_FILE_PATH);
+            String sortedData = iplAnalyser.getSortedPlayerData(SortedDataBaseOnField.BEST_ALL_ROUNDER);
+            IPLAnalyserDAO[] iplCSVData = new Gson().fromJson(sortedData, IPLAnalyserDAO[].class);
+            Assert.assertEquals("Marcus Stoinis", iplCSVData[0].playerName);
+        } catch (IPLException e) {
+            Assert.assertEquals(IPLException.ExceptionType.CENSUS_FILE_PROBLEM, e.type);
+        }
+    }
 }

@@ -13,33 +13,27 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.stream.StreamSupport;
 
-public class AllRounderAdapter extends IPLAdapter {
+public class IPLAllRounderAdapter extends IPLAdapter {
     Map<String, IPLAnalyserDAO> map1 = new HashMap<>();
 
     @Override
     public Map<String, IPLAnalyserDAO> loadIplData(String... filePath) throws IPLException {
         map1 = super.loadIplCSVFileData(IPLBatsmanData.class, filePath[0]);
-        this.loadBowlerData(filePath[1]);
+        this.loadBowlerData(map1,filePath[1]);
         return map1;
     }
 
-    private int loadBowlerData(String filePath) throws IPLException {
+    private int loadBowlerData(Map<String, IPLAnalyserDAO> map1, String filePath) throws IPLException {
         try (Reader reader = Files.newBufferedReader(Paths.get(filePath))) {
             ICSVBuilder csvBuilder = CSVBuilderFactory.createCSVBuilder();
-            Iterator<IPLBowlerData> stateCSVIterator = csvBuilder.getCSVFileIterator(reader, IPLBowlerData.class);
-            Iterable<IPLBowlerData> csvIterable = () -> stateCSVIterator;
+            Iterator<IPLBowlerData> iplCSVIterator = csvBuilder.getCSVFileIterator(reader, IPLBowlerData.class);
+            Iterable<IPLBowlerData> csvIterable = () -> iplCSVIterator;
             StreamSupport.stream
                     (csvIterable.spliterator(), false)
                     .map(IPLBowlerData.class::cast)
                     .filter(csvPlayer -> map1.get(csvPlayer.economy) != null)
-                    .forEach(mergedData -> {
-                        map1.get(mergedData.playerName).bowlerAverage = mergedData.average;
-                        map1.get(mergedData.playerName).wickets = mergedData.wickets;
-                    });
-        } catch (IOException e) {
-            throw new IPLException(e.getMessage(),
-                    IPLException.ExceptionType.CENSUS_FILE_PROBLEM);
-        } catch (CsvBuilderException e) {
+                    .forEach(mergedData -> { map1.get(mergedData.playerName).bowlerAverage = mergedData.average;});
+        } catch (CsvBuilderException | IOException  e) {
             throw new IPLException(e.getMessage(),
                     IPLException.ExceptionType.CENSUS_FILE_PROBLEM);
         }

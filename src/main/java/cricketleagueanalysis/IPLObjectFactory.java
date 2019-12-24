@@ -7,6 +7,6 @@ public class IPLObjectFactory {
         } else if(fileEnum.equals(Player.BOWLER)) {
             return new IPLBowlerAdapter();
         }else
-            return new AllRounderAdapter();
+            return new IPLAllRounderAdapter();
     }
 }

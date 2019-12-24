@@ -8,5 +8,4 @@ public class MostRunAndWickets implements Comparator<IPLAnalyserDAO> {
         return ((iplMostRunsCSV.numberOfRuns * iplMostRunsCSV.wickets) -
                 ((iplMostRunsCSV1.numberOfRuns * iplMostRunsCSV1.wickets)));
     }
-
 }

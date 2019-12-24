@@ -15,7 +15,7 @@ public class IPLBowlerTest {
 
     private static final String IPL_MOST_RUN_CSV_FILE_PATH = "./src/test/resources/IPL2019FactsheetMostRuns.csv";
     private static final String IPL_MOST_WICKETS_CSV_FILE_PATH = "./src/test/resources/IPL2019FactsheetMostWkts.csv";
-    private static final String WRONG_CSV_FILE_PATH = "./src/test/resources/IPL2019FactsheetMostWkt.csv";
+    private static final String WRONG_CSV_FILE_PATH = "./src/test/resources/WrongDelimiterIPL2019MostRun.csv";
 
     @Test
     public void givenIPLMostWktCSVFile_ShouldGetMapOfCorrectSize() {
@@ -39,7 +39,7 @@ public class IPLBowlerTest {
             numOfRecords = iplAnalyser.loadIplData(Player.BATSMAN, WRONG_CSV_FILE_PATH);
             Assert.assertEquals(100, numOfRecords);
         } catch (IPLException e) {
-            Assert.assertEquals(IPLException.ExceptionType.WRONG_FILE_PATH, e.type);
+            Assert.assertEquals(IPLException.ExceptionType.CENSUS_FILE_PROBLEM, e.type);
         }
     }
 
@@ -150,7 +150,7 @@ public class IPLBowlerTest {
     @Test
     public void givenIPLCSV_WhoHadBestBowlingAndBatingAverage_ShouldReturnPlayerName() {
         IPLAnalyser iplAnalyser = new IPLAnalyser();
-        iplAnalyser.setIPLAdapter(new AllRounderAdapter());
+        iplAnalyser.setIPLAdapter(new IPLAllRounderAdapter());
         try {
             iplAnalyser.loadIplData(Player.All_ROUNDER, IPL_MOST_RUN_CSV_FILE_PATH, IPL_MOST_WICKETS_CSV_FILE_PATH);
             String sortedData = iplAnalyser.getSortedPlayerData(SortedDataBaseOnField.BEST_BOWLING_BATTING_AVERAGE);
@@ -164,7 +164,7 @@ public class IPLBowlerTest {
     @Test
     public void givenIPLCSV_WhoAreTheBestAllRounder_ShouldReturnPlayerName() {
         IPLAnalyser iplAnalyser = new IPLAnalyser();
-        iplAnalyser.setIPLAdapter(new AllRounderAdapter());
+        iplAnalyser.setIPLAdapter(new IPLAllRounderAdapter());
         try {
             iplAnalyser.loadIplData(Player.All_ROUNDER, IPL_MOST_RUN_CSV_FILE_PATH, IPL_MOST_WICKETS_CSV_FILE_PATH);
             String sortedData = iplAnalyser.getSortedPlayerData(SortedDataBaseOnField.BEST_ALL_ROUNDER);
@@ -172,6 +172,20 @@ public class IPLBowlerTest {
             Assert.assertEquals("Marcus Stoinis", iplCSVData[0].playerName);
         } catch (IPLException e) {
             Assert.assertEquals(IPLException.ExceptionType.WRONG_FILE_PATH, e.type);
+        }
+    }
+
+    @Test
+    public void givenIPLCSV_WhenPassWrongFile_ShouldThrowException() {
+        IPLAnalyser iplAnalyser = new IPLAnalyser();
+        iplAnalyser.setIPLAdapter(new IPLAllRounderAdapter());
+        try {
+            iplAnalyser.loadIplData(Player.All_ROUNDER, IPL_MOST_RUN_CSV_FILE_PATH, WRONG_CSV_FILE_PATH);
+            String sortedData = iplAnalyser.getSortedPlayerData(SortedDataBaseOnField.BEST_ALL_ROUNDER);
+            IPLAnalyserDAO[] iplCSVData = new Gson().fromJson(sortedData, IPLAnalyserDAO[].class);
+            Assert.assertEquals("Marcus Stoinis", iplCSVData[0].playerName);
+        } catch (IPLException e) {
+            Assert.assertEquals(IPLException.ExceptionType.CENSUS_FILE_PROBLEM, e.type);
         }
     }
 }
