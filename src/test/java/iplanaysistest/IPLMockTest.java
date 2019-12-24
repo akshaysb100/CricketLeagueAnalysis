@@ -21,7 +21,7 @@ public class IPLMockTest {
     @Rule
     public MockitoRule mockitoRule = MockitoJUnit.rule();
     private static final String IPL_MOST_RUN_CSV_FILE_PATH = "./src/test/resources/IPL2019FactsheetMostRuns.csv";
-    Map<String, IPLAnalyserDAO> playerList;
+    public Map<String, IPLAnalyserDAO> playerList;
 
     @Mock
     IPLAdapter iplAdapter;
@@ -30,10 +30,7 @@ public class IPLMockTest {
     public void setUp() throws Exception {
         this.playerList = new HashMap<String, IPLAnalyserDAO>();
         this.playerList.put("iho", new IPLAnalyserDAO("Akshay", 250, 68.2, 153, 8, 10));
-        this.playerList.put("iho", new IPLAnalyserDAO("Akshay B", 365, 93.56, 150, 4, 12));
-        this.playerList.put("iho", new IPLAnalyserDAO("Laxman C", 465, 69.22, 142, 9, 11));
-        this.playerList.put("iho", new IPLAnalyserDAO("Mangesh", 345, 67.92, 132, 10, 15));
-        MockitoAnnotations.initMocks(this);
+          MockitoAnnotations.initMocks(this);
     }
 
     @Test
@@ -42,14 +39,26 @@ public class IPLMockTest {
         try {
             Map<String,IPLAnalyserDAO> iplAnalyserDAOMap = new HashMap<>();
             IPLAnalyserDAO iplAnalyserDAO = new IPLAnalyserDAO();
-
             iplAnalyserDAOMap.put("virat kohli",iplAnalyserDAO);
             iplAnalyserDAOMap.put("Rohit",iplAnalyserDAO);
-
             IPLAnalyser iplAnalyser = new IPLAnalyser();
             iplAnalyser.setIPLAdapter(iplAdapter);
             when(iplAdapter.loadIplData(IPL_MOST_RUN_CSV_FILE_PATH)).thenReturn(iplAnalyserDAOMap);
             Assert.assertEquals(2,iplAnalyserDAOMap.size());
+        } catch (IPLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void givenCricketLeagueData_MockitoTest() {
+        try {
+            IPLAdapter iplAdapter = mock(IPLBatsmanAdapter.class);
+            when(iplAdapter.loadIplCSVFileData(IPLBatsmanAdapter.class,IPL_MOST_RUN_CSV_FILE_PATH)).thenReturn(playerList);
+            IPLAnalyser iplAnalyser = new IPLAnalyser();
+            iplAnalyser.setIPLAdapter(iplAdapter);
+            when(iplAdapter.loadIplData(IPL_MOST_RUN_CSV_FILE_PATH)).thenReturn(this.playerList);
+            Assert.assertEquals(1,this.playerList.size());
         } catch (IPLException e) {
             e.printStackTrace();
         }
