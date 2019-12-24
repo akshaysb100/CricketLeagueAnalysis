@@ -15,15 +15,11 @@ import java.util.stream.StreamSupport;
 
 public class AllRounderAdapter extends IPLAdapter {
     Map<String, IPLAnalyserDAO> map1 = new HashMap<>();
-    Map<String, IPLAnalyserDAO> map2 = new HashMap<>();
-
 
     @Override
     public Map<String, IPLAnalyserDAO> loadIplData(String... filePath) throws IPLException {
         map1 = super.loadIplCSVFileData(IPLBatsmanData.class, filePath[0]);
-        map2 = super.loadIplCSVFileData(IPLBowlerData.class,filePath[1]);
-        //    this.loadBowlerData(filePath[1]);
-        map1.putAll(map2);
+        this.loadBowlerData(filePath[1]);
         return map1;
     }
 

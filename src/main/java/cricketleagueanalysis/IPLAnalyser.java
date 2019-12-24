@@ -31,7 +31,7 @@ public class IPLAnalyser {
         Comparator<IPLAnalyserDAO> bestWickets = Comparator.comparing(censusDAO -> censusDAO.wickets, Comparator.reverseOrder());
         this.fieldsName.put(SortedDataBaseOnField.MAXIMUM_WICKET_WITH_AVERAGE, bestWickets.thenComparing(bowlingAverage));
         Comparator<IPLAnalyserDAO> batingAverage = Comparator.comparing(censusDAO -> censusDAO.batsmanAverage,Comparator.reverseOrder());
-        this.fieldsName.put(SortedDataBaseOnField.BEST_BOWLING_BATTING_AVERAGE,  bowlingAverage.thenComparing(batingAverage));
+        this.fieldsName.put(SortedDataBaseOnField.BEST_BOWLING_BATTING_AVERAGE,  batingAverage.thenComparing(iplData -> iplData.bowlerAverage));
         this.fieldsName.put(SortedDataBaseOnField.BEST_ALL_ROUNDER, new MostRunAndWickets().reversed());
     }
 
