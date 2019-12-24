@@ -76,10 +76,40 @@ public class IPLMockTest {
             IPLAnalyser cricketLeague = new IPLAnalyser();
             cricketLeague.setIPLAdapter(iplAdapter);
             when(iplAdapter.loadIplData(IPL_MOST_RUN_CSV_FILE_PATH)).thenReturn(batsmanPlayerList);
-            cricketLeague.loadIplData(Player.BATSMAN,IPL_MOST_RUN_CSV_FILE_PATH);
+            cricketLeague.loadIplData(Player.BATSMAN, IPL_MOST_RUN_CSV_FILE_PATH);
             String sortedCricketLeagueData = cricketLeague.getSortedPlayerData(SortedDataBaseOnField.BATSMAN_AVERAGE);
             IPLBatsmanData[] leagueCSV = new Gson().fromJson(sortedCricketLeagueData, IPLBatsmanData[].class);
             Assert.assertEquals("Pravin", leagueCSV[0].playerName);
+        } catch (IPLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void givenBatsmanData_SortBasedOnMaximumRuns() {
+        try {
+            IPLAnalyser cricketLeague = new IPLAnalyser();
+            cricketLeague.setIPLAdapter(iplAdapter);
+            when(iplAdapter.loadIplData(IPL_MOST_RUN_CSV_FILE_PATH)).thenReturn(batsmanPlayerList);
+            cricketLeague.loadIplData(Player.BATSMAN, IPL_MOST_RUN_CSV_FILE_PATH);
+            String sortedCricketLeagueData = cricketLeague.getSortedPlayerData(SortedDataBaseOnField.MAXIMUM_RUN_WITH_AVERAGE);
+            IPLBatsmanData[] leagueCSV = new Gson().fromJson(sortedCricketLeagueData, IPLBatsmanData[].class);
+            Assert.assertEquals("Pravin", leagueCSV[0].playerName);
+        } catch (IPLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void givenBowlerData_SortBasedOnMaximumWicketsWithAverage() {
+        try {
+            IPLAnalyser cricketLeague = new IPLAnalyser();
+            cricketLeague.setIPLAdapter(iplAdapter);
+            when(iplAdapter.loadIplData(IPL_MOST_RUN_CSV_FILE_PATH)).thenReturn(batsmanPlayerList);
+            cricketLeague.loadIplData(Player.BATSMAN, IPL_MOST_RUN_CSV_FILE_PATH);
+            String sortedCricketLeagueData = cricketLeague.getSortedPlayerData(SortedDataBaseOnField.MAXIMUM_WICKET_WITH_AVERAGE);
+            IPLBatsmanData[] leagueCSV = new Gson().fromJson(sortedCricketLeagueData, IPLBatsmanData[].class);
+            Assert.assertEquals("Akshay", leagueCSV[0].playerName);
         } catch (IPLException e) {
             e.printStackTrace();
         }
