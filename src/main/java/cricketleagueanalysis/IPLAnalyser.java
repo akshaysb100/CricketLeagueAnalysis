@@ -14,7 +14,7 @@ public class IPLAnalyser {
     public IPLAnalyser() {
         this.iplAnalysisMap = new HashMap<>();
         this.fieldsName = new HashMap<>();
-        this.fieldsName.put(SortedDataBaseOnField.AVERAGE_BATSMAN, Comparator.comparing(census -> census.batsmanAverage, Comparator.reverseOrder()));
+        this.fieldsName.put(SortedDataBaseOnField.BATSMAN_AVERAGE, Comparator.comparing(census -> census.batsmanAverage, Comparator.reverseOrder()));
         this.fieldsName.put(SortedDataBaseOnField.STRIKING_RATE, Comparator.comparing(census -> census.strikeRate, Comparator.reverseOrder()));
         this.fieldsName.put(SortedDataBaseOnField.BY_4s_AND_6s, new SortMethodContainer().reversed());
         this.fieldsName.put(SortedDataBaseOnField.STRIKING_RATE_WITH_6S_And_4s, new SortMethodContainer().reversed().thenComparing(compare -> compare.strikeRate));
@@ -22,7 +22,7 @@ public class IPLAnalyser {
         this.fieldsName.put(SortedDataBaseOnField.AVERAGE_WITH_BEST_STRIKING_RATE, average.thenComparing(censusDAO -> censusDAO.strikeRate, Comparator.reverseOrder()));
         Comparator<IPLAnalyserDAO> bestRuns = Comparator.comparing(censusDAO -> censusDAO.numberOfRuns, Comparator.reverseOrder());
         this.fieldsName.put(SortedDataBaseOnField.MAXIMUM_RUN_WITH_AVERAGE, bestRuns.thenComparing(average));
-        this.fieldsName.put(SortedDataBaseOnField.AVERAGE_BOWLER, Comparator.comparing(census -> census.bowlerAverage.intValue()));
+        this.fieldsName.put(SortedDataBaseOnField.BOWLER_AVERAGE, Comparator.comparing(census -> census.bowlerAverage.intValue()));
         this.fieldsName.put(SortedDataBaseOnField.STRIKING_RATE_BOWLER, Comparator.comparing(census -> census.strikeRate.intValue()));
         this.fieldsName.put(SortedDataBaseOnField.ECONOMY, Comparator.comparing(census -> census.economy));
         this.fieldsName.put(SortedDataBaseOnField.BY_4w_AND_5w, new SortedByWickets().reversed().thenComparing(census -> census.strikeRate));

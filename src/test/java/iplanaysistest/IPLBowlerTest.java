@@ -50,7 +50,7 @@ public class IPLBowlerTest {
         String sortedData = null;
         try {
             iplAnalyser.loadIplData(Player.BOWLER, IPL_MOST_WICKETS_CSV_FILE_PATH);
-            sortedData = iplAnalyser.getSortedPlayerData(SortedDataBaseOnField.AVERAGE_BOWLER);
+            sortedData = iplAnalyser.getSortedPlayerData(SortedDataBaseOnField.BOWLER_AVERAGE);
             IPLBowlerData[] iplCSVData = new Gson().fromJson(sortedData, IPLBowlerData[].class);
             Assert.assertEquals("Suresh Raina", iplCSVData[0].playerName);
         } catch (IPLException e) {
@@ -64,7 +64,7 @@ public class IPLBowlerTest {
         iplAnalyser.setIPLAdapter(new IPLBowlerAdapter());
         String sortedData = null;
         try {
-            sortedData = iplAnalyser.getSortedPlayerData(SortedDataBaseOnField.AVERAGE_BOWLER);
+            sortedData = iplAnalyser.getSortedPlayerData(SortedDataBaseOnField.BOWLER_AVERAGE);
             IPLBowlerData[] iplCSVData = new Gson().fromJson(sortedData, IPLBowlerData[].class);
             Assert.assertEquals("Suresh Raina", iplCSVData[0].playerName);
         } catch (IPLException e) {

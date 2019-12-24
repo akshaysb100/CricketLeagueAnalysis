@@ -5,7 +5,6 @@ import cricketleagueanalysis.*;
 import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
-import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
 
@@ -77,7 +76,7 @@ public class ILPBatsmanTest {
         String sortedData = null;
         try {
             iplAnalyser.loadIplData(Player.BATSMAN, IPL_MOST_RUN_CSV_FILE_PATH);
-            sortedData = iplAnalyser.getSortedPlayerData(SortedDataBaseOnField.AVERAGE_BATSMAN);
+            sortedData = iplAnalyser.getSortedPlayerData(SortedDataBaseOnField.BATSMAN_AVERAGE);
             IPLBatsmanData[] censusCSV = new Gson().fromJson(sortedData, IPLBatsmanData[].class);
             Assert.assertEquals("MS Dhoni", censusCSV[0].playerName);
         } catch (IPLException e) {
@@ -91,7 +90,7 @@ public class ILPBatsmanTest {
         iplAnalyser.setIPLAdapter(new IPLBatsmanAdapter());
         String sortedData = null;
         try {
-            sortedData = iplAnalyser.getSortedPlayerData(SortedDataBaseOnField.AVERAGE_BATSMAN);
+            sortedData = iplAnalyser.getSortedPlayerData(SortedDataBaseOnField.BATSMAN_AVERAGE);
             IPLBatsmanData[] censusCSV = new Gson().fromJson(sortedData, IPLBatsmanData[].class);
             Assert.assertEquals("MS Dhoni", censusCSV[0].playerName);
         } catch (IPLException e) {

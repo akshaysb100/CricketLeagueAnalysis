@@ -1,5 +1,6 @@
 package iplanaysistest;
 
+import com.google.gson.Gson;
 import cricketleagueanalysis.*;
 import org.junit.Assert;
 import org.junit.Before;
@@ -21,7 +22,8 @@ public class IPLMockTest {
     @Rule
     public MockitoRule mockitoRule = MockitoJUnit.rule();
     private static final String IPL_MOST_RUN_CSV_FILE_PATH = "./src/test/resources/IPL2019FactsheetMostRuns.csv";
-    public Map<String, IPLAnalyserDAO> playerList;
+    public Map<String, IPLAnalyserDAO> batsmanPlayerList;
+    public Map<String, IPLAnalyserDAO> bowlerPlayerList;
 
     @Mock
     IPLAdapter iplAdapter;
@@ -29,9 +31,12 @@ public class IPLMockTest {
     @Before
     public void setUp() throws Exception {
         this.iplAdapter = mock(IPLAdapter.class);
-        this.playerList = new HashMap<String, IPLAnalyserDAO>();
-        this.playerList.put("Aksahy", new IPLAnalyserDAO("Akshay", 250, 68.2, 153, 8, 10));
-        this.playerList.put("iho", new IPLAnalyserDAO("Pravin", 250, 68.2, 153, 8, 10));
+        this.batsmanPlayerList = new HashMap<String, IPLAnalyserDAO>();
+        this.batsmanPlayerList.put("Aksahy1", new IPLAnalyserDAO("Akshay", 350, 68.2, 40, 6, 0));
+        this.batsmanPlayerList.put("Akshay2", new IPLAnalyserDAO("Pravin", 450, 78.2, 30, 8, 1));
+        this.bowlerPlayerList = new HashMap<String, IPLAnalyserDAO>();
+        this.bowlerPlayerList.put("Aksahy3", new IPLAnalyserDAO("Kartik", 375, 66.2, 33, 5, 5));
+        this.bowlerPlayerList.put("Akshay4", new IPLAnalyserDAO("Akshay", 250, 60.2, 16, 6, 10));
         MockitoAnnotations.initMocks(this);
     }
 
@@ -57,9 +62,24 @@ public class IPLMockTest {
         try {
             IPLAnalyser iplAnalyser = new IPLAnalyser();
             iplAnalyser.setIPLAdapter(iplAdapter);
-            when(iplAdapter.loadIplData(IPL_MOST_RUN_CSV_FILE_PATH)).thenReturn(playerList);
+            when(iplAdapter.loadIplData(IPL_MOST_RUN_CSV_FILE_PATH)).thenReturn(batsmanPlayerList);
             int i = iplAnalyser.loadIplData(Player.BATSMAN, IPL_MOST_RUN_CSV_FILE_PATH);
             Assert.assertEquals(2, i);
+        } catch (IPLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void givenBatsmanData_SortBasedOnBatsmanAverage() {
+        try {
+            IPLAnalyser cricketLeague = new IPLAnalyser();
+            cricketLeague.setIPLAdapter(iplAdapter);
+            when(iplAdapter.loadIplData(IPL_MOST_RUN_CSV_FILE_PATH)).thenReturn(batsmanPlayerList);
+            cricketLeague.loadIplData(Player.BATSMAN,IPL_MOST_RUN_CSV_FILE_PATH);
+            String sortedCricketLeagueData = cricketLeague.getSortedPlayerData(SortedDataBaseOnField.BATSMAN_AVERAGE);
+            IPLBatsmanData[] leagueCSV = new Gson().fromJson(sortedCricketLeagueData, IPLBatsmanData[].class);
+            Assert.assertEquals("Pravin", leagueCSV[0].playerName);
         } catch (IPLException e) {
             e.printStackTrace();
         }
