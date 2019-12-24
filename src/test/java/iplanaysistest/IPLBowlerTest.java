@@ -20,6 +20,7 @@ public class IPLBowlerTest {
     @Test
     public void givenIPLMostWktCSVFile_ShouldGetMapOfCorrectSize() {
         IPLAnalyser iplAnalyser = new IPLAnalyser();
+        iplAnalyser.setIPLAdapter(new IPLBowlerAdapter());
         int numOfRecords = 0;
         try {
             numOfRecords = iplAnalyser.loadIplData(Player.BOWLER, IPL_MOST_WICKETS_CSV_FILE_PATH);
@@ -32,6 +33,7 @@ public class IPLBowlerTest {
     @Test
     public void givenIPLMostWicketCSVFile_WithPassWrongFile_ShouldThrowException() {
         IPLAnalyser iplAnalyser = new IPLAnalyser();
+        iplAnalyser.setIPLAdapter(new IPLBowlerAdapter());
         int numOfRecords = 0;
         try {
             numOfRecords = iplAnalyser.loadIplData(Player.BATSMAN, WRONG_CSV_FILE_PATH);
@@ -44,6 +46,7 @@ public class IPLBowlerTest {
     @Test
     public void givenIPLMostRunCSVFile_SortedOnBestBattingAverage_ShouldReturnPlayerName() {
         IPLAnalyser iplAnalyser = new IPLAnalyser();
+        iplAnalyser.setIPLAdapter(new IPLBowlerAdapter());
         String sortedData = null;
         try {
             iplAnalyser.loadIplData(Player.BOWLER, IPL_MOST_WICKETS_CSV_FILE_PATH);
@@ -58,6 +61,7 @@ public class IPLBowlerTest {
     @Test
     public void givenIPLMostWicketCSVFile_DataNotLoad_ShouldThrowException() {
         IPLAnalyser iplAnalyser = new IPLAnalyser();
+        iplAnalyser.setIPLAdapter(new IPLBowlerAdapter());
         String sortedData = null;
         try {
             sortedData = iplAnalyser.getSortedPlayerData(SortedDataBaseOnField.AVERAGE_BOWLER);
@@ -71,6 +75,7 @@ public class IPLBowlerTest {
     @Test
     public void givenIPLMostWicketCSVFile_TopStrikingRatesOfBowler_ShouldReturnPlayerName() {
         IPLAnalyser iplAnalyser = new IPLAnalyser();
+        iplAnalyser.setIPLAdapter(new IPLBowlerAdapter());
         String sortedData = null;
         try {
             iplAnalyser.loadIplData(Player.BOWLER, IPL_MOST_WICKETS_CSV_FILE_PATH);
@@ -85,6 +90,7 @@ public class IPLBowlerTest {
     @Test
     public void givenIPLMosWicketCSVFile_TopEconomyOfBowler_ShouldReturnPlayerName() {
         IPLAnalyser iplAnalyser = new IPLAnalyser();
+        iplAnalyser.setIPLAdapter(new IPLBowlerAdapter());
         String sortedData = null;
         try {
             iplAnalyser.loadIplData(Player.BOWLER, IPL_MOST_WICKETS_CSV_FILE_PATH);
@@ -99,6 +105,7 @@ public class IPLBowlerTest {
     @Test
     public void givenIPLMostWicketCSVFile_TopStrikingRatesOfBowlerWithMaximum5wAnd4w_ShouldReturnPlayerName() {
         IPLAnalyser iplAnalyser = new IPLAnalyser();
+        iplAnalyser.setIPLAdapter(new IPLBowlerAdapter());
         String sortedData = null;
         try {
             iplAnalyser.loadIplData(Player.BOWLER, IPL_MOST_WICKETS_CSV_FILE_PATH);
@@ -113,6 +120,7 @@ public class IPLBowlerTest {
     @Test
     public void givenIPLMostWicketCSVFile_WhoHadGreatAverageWithBEstStrikingRates_ShouldReturnPlayerName() {
         IPLAnalyser iplAnalyser = new IPLAnalyser();
+        iplAnalyser.setIPLAdapter(new IPLBowlerAdapter());
         String sortedData = null;
         try {
             iplAnalyser.loadIplData(Player.BOWLER, IPL_MOST_WICKETS_CSV_FILE_PATH);
@@ -127,6 +135,7 @@ public class IPLBowlerTest {
     @Test
     public void givenIPLMostWicketCSVFile_WhoHitMaximumRunsWithBestAverage_ShouldReturnPlayerName() {
         IPLAnalyser iplAnalyser = new IPLAnalyser();
+        iplAnalyser.setIPLAdapter(new IPLBowlerAdapter());
         String sortedData = null;
         try {
             iplAnalyser.loadIplData(Player.BOWLER, IPL_MOST_WICKETS_CSV_FILE_PATH);
@@ -141,6 +150,7 @@ public class IPLBowlerTest {
     @Test
     public void givenIPLCSV_WhoHadBestBowlingAndBatingAverage_ShouldReturnPlayerName() {
         IPLAnalyser iplAnalyser = new IPLAnalyser();
+        iplAnalyser.setIPLAdapter(new AllRounderAdapter());
         try {
             iplAnalyser.loadIplData(Player.All_ROUNDER, IPL_MOST_RUN_CSV_FILE_PATH, IPL_MOST_WICKETS_CSV_FILE_PATH);
             String sortedData = iplAnalyser.getSortedPlayerData(SortedDataBaseOnField.BEST_BOWLING_BATTING_AVERAGE);
@@ -154,6 +164,7 @@ public class IPLBowlerTest {
     @Test
     public void givenIPLCSV_WhoAreTheBestAllRounder_ShouldReturnPlayerName() {
         IPLAnalyser iplAnalyser = new IPLAnalyser();
+        iplAnalyser.setIPLAdapter(new AllRounderAdapter());
         try {
             iplAnalyser.loadIplData(Player.All_ROUNDER, IPL_MOST_RUN_CSV_FILE_PATH, IPL_MOST_WICKETS_CSV_FILE_PATH);
             String sortedData = iplAnalyser.getSortedPlayerData(SortedDataBaseOnField.BEST_ALL_ROUNDER);

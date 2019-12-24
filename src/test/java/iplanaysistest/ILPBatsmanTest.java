@@ -11,9 +11,6 @@ import org.mockito.junit.MockitoRule;
 
 public class ILPBatsmanTest {
 
-    @Mock
-    IPLAdapter iplAdapter;
-
     @Rule
     public MockitoRule mockitoRule = MockitoJUnit.rule();
 
@@ -24,7 +21,7 @@ public class ILPBatsmanTest {
     @Test
     public void givenIPLMostRunCSVFile_ShouldGetMapOfCorrectSize() {
         IPLAnalyser iplAnalyser = new IPLAnalyser();
-        iplAnalyser.setIPLAdapter(iplAdapter);
+        iplAnalyser.setIPLAdapter(new IPLBatsmanAdapter());
         int numOfRecords = 0;
         try {
             numOfRecords = iplAnalyser.loadIplData(Player.BATSMAN, IPL_MOST_RUN_CSV_FILE_PATH);
@@ -37,6 +34,7 @@ public class ILPBatsmanTest {
     @Test
     public void givenIPLMostRunCSVFile_WithWrongDelimiter_ShouldThrowException() {
         IPLAnalyser iplAnalyser = new IPLAnalyser();
+        iplAnalyser.setIPLAdapter(new IPLBatsmanAdapter());
         int numOfRecords = 0;
         try {
             numOfRecords = iplAnalyser.loadIplData(Player.BATSMAN, WRONG_DELIMITER_CSV_FILE_PATH);
@@ -49,6 +47,7 @@ public class ILPBatsmanTest {
     @Test
     public void givenIPLMostRunCSVFile_WithWrongFile_ShouldThrowException() {
         IPLAnalyser iplAnalyser = new IPLAnalyser();
+        iplAnalyser.setIPLAdapter(new IPLBatsmanAdapter());
         int numOfRecords = 0;
         try {
             numOfRecords = iplAnalyser.loadIplData(Player.BATSMAN, WRONG_CSV_FILE_PATH);
@@ -61,6 +60,7 @@ public class ILPBatsmanTest {
     @Test
     public void givenIPLMostRunCSVFile_WithPassNullFile_ShouldThrowException() {
         IPLAnalyser iplAnalyser = new IPLAnalyser();
+        iplAnalyser.setIPLAdapter(new IPLBatsmanAdapter());
         int numOfRecords = 0;
         try {
             numOfRecords = iplAnalyser.loadIplData(Player.BATSMAN, "");
@@ -73,6 +73,7 @@ public class ILPBatsmanTest {
     @Test
     public void givenIPLMostRunCSVFile_SortedOnBestBattingAverage_ShouldReturnPlayerName() {
         IPLAnalyser iplAnalyser = new IPLAnalyser();
+        iplAnalyser.setIPLAdapter(new IPLBatsmanAdapter());
         String sortedData = null;
         try {
             iplAnalyser.loadIplData(Player.BATSMAN, IPL_MOST_RUN_CSV_FILE_PATH);
@@ -87,6 +88,7 @@ public class ILPBatsmanTest {
     @Test
     public void givenIPLMostRunCSVFile_DataNotLoad_ShouldThrowException() {
         IPLAnalyser iplAnalyser = new IPLAnalyser();
+        iplAnalyser.setIPLAdapter(new IPLBatsmanAdapter());
         String sortedData = null;
         try {
             sortedData = iplAnalyser.getSortedPlayerData(SortedDataBaseOnField.AVERAGE_BATSMAN);
@@ -100,6 +102,7 @@ public class ILPBatsmanTest {
     @Test
     public void givenIPLMostRunCSVFile_TopStrikingRatesOfBatsman_ShouldReturnPlayerName() {
         IPLAnalyser iplAnalyser = new IPLAnalyser();
+        iplAnalyser.setIPLAdapter(new IPLBatsmanAdapter());
         String sortedData = null;
         try {
             iplAnalyser.loadIplData(Player.BATSMAN, IPL_MOST_RUN_CSV_FILE_PATH);
@@ -114,6 +117,7 @@ public class ILPBatsmanTest {
     @Test
     public void givenIPLMostRunCsvFile_WhoHitMaximumSixAndFour_ShouldReturnPlayerName() {
         IPLAnalyser iplAnalyser = new IPLAnalyser();
+        iplAnalyser.setIPLAdapter(new IPLBatsmanAdapter());
         String sortedData = null;
         try {
             iplAnalyser.loadIplData(Player.BATSMAN, IPL_MOST_RUN_CSV_FILE_PATH);
@@ -128,6 +132,7 @@ public class ILPBatsmanTest {
     @Test
     public void givenIPLMostRunCSVFile_TopStrikingRatesOfBatsmanWithMaximum6sAnd4s_ShouldReturnPlayerName() {
         IPLAnalyser iplAnalyser = new IPLAnalyser();
+        iplAnalyser.setIPLAdapter(new IPLBatsmanAdapter());
         String sortedData = null;
         try {
             iplAnalyser.loadIplData(Player.BATSMAN, IPL_MOST_RUN_CSV_FILE_PATH);
@@ -142,6 +147,7 @@ public class ILPBatsmanTest {
     @Test
     public void givenIPLMostRunCSVFile_WhoHadGreatAverageWithBEstStrikingRates_ShouldReturnPlayerName() {
         IPLAnalyser iplAnalyser = new IPLAnalyser();
+        iplAnalyser.setIPLAdapter(new IPLBatsmanAdapter());
         String sortedData = null;
         try {
             iplAnalyser.loadIplData(Player.BATSMAN, IPL_MOST_RUN_CSV_FILE_PATH);
@@ -156,6 +162,7 @@ public class ILPBatsmanTest {
     @Test
     public void givenIPLMostRunCSVFile_WhoHitMaximumRunsWithBestAverage_ShouldReturnPlayerName() {
         IPLAnalyser iplAnalyser = new IPLAnalyser();
+        iplAnalyser.setIPLAdapter(new IPLBatsmanAdapter());
         String sortedData = null;
         try {
             iplAnalyser.loadIplData(Player.BATSMAN, IPL_MOST_RUN_CSV_FILE_PATH);

@@ -40,8 +40,7 @@ public class IPLAnalyser {
     }
 
     public int loadIplData(Player playerType, String... csvFilePath) throws IPLException {
-        IPLAdapter iplAdapter = IPLObjectFactory.getIPLDataObject(playerType);
-        this.iplAnalysisMap = iplAdapter.loadIplData(csvFilePath);
+        this.iplAnalysisMap = this.iplAdapter.loadIplData(csvFilePath);
         return this.iplAnalysisMap.size();
     }
 
